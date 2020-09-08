@@ -1,9 +1,0 @@
-Teste
-Teste
-Teste;time.struct_time(tm_year=2020, tm_mon=8, tm_mday=6, tm_hour=19, tm_min=46, tm_sec=59, tm_wday=3, tm_yday=219, tm_isdst=0)
-Teste
-Teste;time.struct_time(tm_year=2020, tm_mon=8, tm_mday=6, tm_hour=19, tm_min=47, tm_sec=51, tm_wday=3, tm_yday=219, tm_isdst=0)
-Teste
-Teste;06/08/2020
-Teste;06/08/2020
-Teste;06/08/2020
