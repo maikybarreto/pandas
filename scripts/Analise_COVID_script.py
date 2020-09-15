@@ -3,18 +3,31 @@
 # Pacotes básicos para a análise
 import pandas as pd
 import numpy as np
-
-# Pacotes de apresentação de dados
+import sys
 from plotly.subplots import make_subplots
+
+# Fontes de dados
+link = 'https://bi.static.es.gov.br/covid19/MICRODADOS.csv' # Web
+# link = 'excel/MICRODADOS.csv' # Local
+
+# Regiões de análise
+regioes = {'Grande Vitória': ['VILA VELHA', 'VITÓRIA', 'CARIACICA', 'VIANA', 'SERRA'],
+           'Vila Velha':['VILA VELHA'],
+           'Resto da GV': ['VITÓRIA', 'CARIACICA', 'VIANA', 'SERRA']}
 
 # Leitura dos dados e tratamento
 def leitura_e_tratamento(fonte):
     print('Iniciando leitura dos dados')
-    dados = pd.read_csv(fonte, sep = ';', encoding = 'iso8859_15')
-    print('Dados lidos')
-    dados.DataNotificacao = dados.DataNotificacao.astype(np.datetime64)
-    dados.DataObito = dados.DataObito.astype(np.datetime64)
-    return dados
+    try:
+        dados = pd.read_csv(fonte, sep = ';', encoding = 'iso8859_15')
+    except:
+        print('Falha na leitura dos dados')
+        sys.exit(1)
+    else:
+        print('Dados lidos')
+        dados.DataNotificacao = dados.DataNotificacao.astype(np.datetime64)
+        dados.DataObito = dados.DataObito.astype(np.datetime64)
+        return dados
 
 # Extraindo os dados relevantes para a análise
 def extracao_dados(dados, *municipios):
@@ -68,7 +81,7 @@ def gerar_figuras(dados, regiao, *municipios):
     figura.show()
 
 # Programa a ser executado
-dados = leitura_e_tratamento('https://bi.static.es.gov.br/covid19/MICRODADOS.csv')
+dados = leitura_e_tratamento(link)
 gerar_figuras(dados, 'ES')
-gv = ['VILA VELHA', 'VITÓRIA', 'CARIACICA', 'VIANA', 'SERRA']
-gerar_figuras(dados, 'Grande Vitória', gv)
+for r in regioes:
+    gerar_figuras(dados, r, regioes[r])
