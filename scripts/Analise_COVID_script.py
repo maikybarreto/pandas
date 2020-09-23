@@ -8,12 +8,13 @@ from plotly.subplots import make_subplots
 
 # Fontes de dados
 link = 'https://bi.static.es.gov.br/covid19/MICRODADOS.csv' # Web
-# link = 'excel/MICRODADOS.csv' # Local
+#link = '../excel/MICRODADOS.csv' # Local
 
 # Regiões de análise
-regioes = {'Grande Vitória': ['VILA VELHA', 'VITÓRIA', 'CARIACICA', 'VIANA', 'SERRA'],
-           'Vila Velha':['VILA VELHA'],
-           'Resto da GV': ['VITÓRIA', 'CARIACICA', 'VIANA', 'SERRA']}
+regioes = {'ES': None, # Inclui todos os dados
+           'Grande Vitória': ['VILA VELHA', 'VITÓRIA', 'CARIACICA', 'VIANA', 'SERRA']}
+           #'Vila Velha':['VILA VELHA'],
+           #'Resto da GV': ['VITÓRIA', 'CARIACICA', 'VIANA', 'SERRA']}
 
 # Leitura dos dados e tratamento
 def leitura_e_tratamento(fonte):
@@ -66,7 +67,7 @@ def figura_midia(figura, posicao, tipo, total, rm):
 
 # Automatizador do script
 def gerar_figuras(dados, regiao, *municipios):
-    if municipios:
+    if municipios[0] != None:
         total_notif, rm_notif, total_ob, rm_ob = extracao_dados(dados, *municipios)
     else:
         total_notif, rm_notif, total_ob, rm_ob = extracao_dados(dados)
@@ -82,6 +83,5 @@ def gerar_figuras(dados, regiao, *municipios):
 
 # Programa a ser executado
 dados = leitura_e_tratamento(link)
-gerar_figuras(dados, 'ES')
 for r in regioes:
     gerar_figuras(dados, r, regioes[r])

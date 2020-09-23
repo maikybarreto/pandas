@@ -29,5 +29,5 @@ gen1 = read_file('../excel/solar_energy/Plant_1_Generation_Data.csv')
 # %%
 sen1 = read_file('../excel/solar_energy/Plant_1_Weather_Sensor_Data.csv')
 # %%
-cells = gen1.SOURCE_KEY.drop_duplicates().sort_values()
+cells1 = gen1.SOURCE_KEY.drop_duplicates().sort_values()
 # %%
